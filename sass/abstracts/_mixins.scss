@@ -1,0 +1,76 @@
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// MEDIA QUERY MANAGER
+/*
+0 - 600px:         Phone
+600px -900px:      Tablet portrait
+900px - 1200px:    Tablet landscape
+[1200px - 1800px] is where our normal css styles apply: Normal sized desktops
+1800px + :           Big desktops 
+
+
+Breakpoints arguments choice:
+-> Phone
+-> Tab-port
+-> Tab-land
+-> Big-desktop
+
+
+Our root font size does'nt affect the media queries. Also using px unit is not a good
+practice. Hence ems were the best unit to use in the media queries as rems were not 
+working in some of the browsers. By default 1em = 16px and with relation to this we 
+use ems as units in media queries so that even if our user changes the default font 
+size on the browser out media queries work in relation to that as opposed to using
+hardcoded pexels where our media queries might break.
+
+1em = 16px (root font-size in most browsers)
+600px / 16px = 37.5em
+900px / 16px = 56.25em
+1200px / 16px = 75em
+1800px / 16px = 112.5em
+
+ORDER: Base + typography > general layout + grid > page layout > components
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      // 600px = 37.5em
+      @content;
+    }
+  }
+
+  @if $breakpoint == tab-port {
+    @media only screen and (max-width: 56.25em) {
+      // 900px = 56.25em
+      @content;
+    }
+  }
+
+  @if $breakpoint == tab-land {
+    @media only screen and (max-width: 75em) {
+      //1200px = 75em
+      @content;
+    }
+  }
+
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      //1800px = 112.5em
+      @content;
+    }
+  }
+}

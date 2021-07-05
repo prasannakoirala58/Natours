@@ -1,0 +1,64 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  /*
+  This defines what 1 rem is and it is 16px by default in most browsers. 62.5% accounts in 10px.
+  62.5% of 16px is 10px. Our root font-size is 10px and 1rem equals our root font-size: 10px.
+  10 / 16 * 100% = 62.5% 
+  */
+  font-size: 62.5%;
+  /*
+   62.5% of 16 is 10px resulting in 10px root font-size for our website. If in case the user
+   edits the default font-size of their browser which is 16px then we can automatically increase
+   or decrease font-size of our overall webpage allowing some users who are far/near sighted to
+   use our website easily. In other words UX gets better.
+   */
+
+  /* 
+  When the screen size is 500px then the tablet portrait applies too. So we dont need to specify
+  media queries for small screens of less then 600px for phones.
+  600px / 16px = 37.5em
+  900px / 16px = 56.25em
+  1200px / 16px = 75em
+  1800px / 16px = 112.5em
+  */
+
+  // @include respond(phone) {
+  //   // width < 600px ?
+  //   font-size: 30%; // if we want 1rem = 4.8px then 4.8 / 16 * 100% = 30%
+  // }
+
+  @include respond(tab-land) {
+    // width < 1200px ?
+    font-size: 56.25%; // if we want 1rem = 9px then 9 / 16 * 100% = 56.25%
+  }
+
+  @include respond(tab-port) {
+    // width < 900px ?
+    font-size: 50%; // if we want 1rem = 8px then 8 / 16 * 100% = 50%
+  }
+
+  @include respond(big-desktop) {
+    font-size: 75%; // if we want 1rem = 12px then 12 / 16 * 100% = 75%
+  }
+}
+
+body {
+  box-sizing: border-box;
+  padding: 3rem;
+
+  @include respond(tab-port) {
+    padding: 0;
+  }
+}
+
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}
